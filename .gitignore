@@ -1,0 +1,11 @@
+# Ignore .env file
+.env
+env
+.env/
+env/
+
+# Ignore .venv file
+.venv
+venv
+.venv/
+venv/
