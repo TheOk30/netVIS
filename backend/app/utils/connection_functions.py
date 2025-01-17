@@ -1,6 +1,7 @@
 import paramiko
 import time
-from backend.app.models.device_type import get_all_output_type, get_device_type
+from .extra_functions import check_for_more, is_timed_out
+from models.device_type import get_all_output_type, get_device_type
 
 
 def detect_device_type(host, username, password, timeout=20):
@@ -60,22 +61,3 @@ def detect_device_type(host, username, password, timeout=20):
     except Exception as e:
         print(f"An error occurred: {e}")
         return "unknown"
-
-
-def check_for_more(chunk:str):
-    """ 
-    Check for pagination prompt '--More--'
-    """
-
-    if "--More--" in chunk:
-        return True
-    elif "#" in chunk or ">" in chunk:  # Adjust prompt detection as needed for more types
-        return False
-    
-    raise Exception("Problem occured with recieved chunk -- check newline symbol")
-
-def is_timed_out(start_time, timeout):
-    """
-    Check if the elapsed time since start_time has exceeded the timeout value.
-    """
-    return time.time() - start_time >= timeout
